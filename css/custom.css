@@ -1,0 +1,58 @@
+/* ==========================================
+   1. 保留顶部遮罩，并改用“向下渐变羽化”（消除硬切线）
+   ========================================== */
+#page-header::before {
+  /* 顶部 50% 黑度保证文字清晰，向下自然过渡到 0% 完全透明 */
+  background: linear-gradient(
+    to bottom, 
+    rgba(0, 0, 0, 0.55) 0%, 
+    rgba(0, 0, 0, 0.25) 60%, 
+    rgba(0, 0, 0, 0) 100%
+  ) !important;
+  opacity: 1 !important;
+}
+
+/* ==========================================
+   2. 页面容器穿透（透出底层图片）
+   ========================================== */
+#page-header,
+#page,
+#content-inner,
+.layout,
+#footer,
+#footer::before {
+  background: transparent !important;
+}
+
+/* ==========================================
+   3. 全局固定壁纸
+   ========================================== */
+body {
+  background-image: url('/img/bg.jpg') !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+/* ==========================================
+   4. 卡片半透明 + 磨砂玻璃质感
+   ========================================== */
+/* 暗黑模式 */
+[data-theme='dark'] .card-widget,
+[data-theme='dark'] .recent-post-item,
+[data-theme='dark'] #article-container {
+  background: rgba(18, 18, 18, 0.65) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 12px !important;
+}
+
+/* 亮色模式 */
+[data-theme='light'] .card-widget,
+[data-theme='light'] .recent-post-item,
+[data-theme='light'] #article-container {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 12px !important;
+}
