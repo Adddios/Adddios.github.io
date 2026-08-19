@@ -1,19 +1,37 @@
 /* ==========================================
-   1. 保留顶部遮罩，并改用“向下渐变羽化”（消除硬切线）
+   1. 消除暗黑模式下默认对背景图的压暗滤镜（核心关键！）
    ========================================== */
-#page-header::before {
-  /* 顶部 50% 黑度保证文字清晰，向下自然过渡到 0% 完全透明 */
+[data-theme='dark'] #web_bg::before,
+[data-theme='dark'] body::before {
+  background: transparent !important;
+  filter: none !important;
+}
+
+/* ==========================================
+   2. 暗黑模式下：轻量级顶栏渐变（既能看清白字，又不过暗）
+   ========================================== */
+[data-theme='dark'] #page-header::before {
   background: linear-gradient(
     to bottom, 
-    rgba(0, 0, 0, 0.55) 0%, 
-    rgba(0, 0, 0, 0.25) 60%, 
+    rgba(0, 0, 0, 0.35) 0%,   /* 顶部稍微有一点黑色衬托文字 */
+    rgba(0, 0, 0, 0.1) 60%,    /* 中间极淡 */
+    rgba(0, 0, 0, 0) 100%      /* 底部完全透明无缝衔接 */
+  ) !important;
+  opacity: 1 !important;
+}
+
+/* 亮色模式下：保持清爽渐变 */
+[data-theme='light'] #page-header::before {
+  background: linear-gradient(
+    to bottom, 
+    rgba(0, 0, 0, 0.25) 0%, 
     rgba(0, 0, 0, 0) 100%
   ) !important;
   opacity: 1 !important;
 }
 
 /* ==========================================
-   2. 页面容器穿透（透出底层图片）
+   3. 页面容器与页脚一透到底
    ========================================== */
 #page-header,
 #page,
@@ -25,7 +43,7 @@
 }
 
 /* ==========================================
-   3. 全局固定壁纸
+   4. 全局固定底层壁纸
    ========================================== */
 body {
   background-image: url('/img/bg.jpg') !important;
@@ -35,9 +53,9 @@ body {
 }
 
 /* ==========================================
-   4. 卡片半透明 + 磨砂玻璃质感
+   5. 卡片磨砂玻璃质感
    ========================================== */
-/* 暗黑模式 */
+/* 暗黑模式卡片 */
 [data-theme='dark'] .card-widget,
 [data-theme='dark'] .recent-post-item,
 [data-theme='dark'] #article-container {
@@ -47,7 +65,7 @@ body {
   border-radius: 12px !important;
 }
 
-/* 亮色模式 */
+/* 亮色模式卡片 */
 [data-theme='light'] .card-widget,
 [data-theme='light'] .recent-post-item,
 [data-theme='light'] #article-container {
